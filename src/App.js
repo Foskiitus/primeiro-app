@@ -1,63 +1,40 @@
 import { useState } from "react";
 
 function App() {
-  const [nome, setNome] = useState("");
-  const [email, setEmail] = useState("");
-  const [idade, setIdade] = useState("");
-
-  const [user, setUser] = useState({});
+  const [input, setInput] = useState("");
+  const [tarefas, setTarefas] = useState([
+    "Pagar a conta de luz",
+    "Estudar ReactJS",
+  ]);
 
   function handleRegister(e) {
     e.preventDefault();
 
-    alert("Usuario registrado com sucesso!");
-    setUser({
-      nome: nome,
-      idade: idade,
-      email: email,
-    });
+    setTarefas([...tarefas, input]);
+    setInput("");
   }
 
   return (
     <div>
-      <h1>Cadastrando usuario</h1>
+      <h1>Cadastrando tarefa</h1>
       <form onSubmit={handleRegister}>
-        <label>Nome:</label>
+        <label>Nome da tarefa:</label>
         <br />
         <input
-          placeholder="Digite seu nome"
-          value={nome}
-          onChange={(e) => setNome(e.target.value)}
-        />
-        <br />
-        <label>Email:</label>
-        <br />
-        <input
-          placeholder="Digite seu email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <br />
-        <label>Idade:</label>
-        <br />
-        <input
-          placeholder="Digite sua idade"
-          value={idade}
-          onChange={(e) => setIdade(e.target.value)}
+          placeholder="Digite sua tarefa"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
         />
         <br />
         <button type="submit">Registrar</button>
       </form>
       <br />
       <br />
-      <div>
-        <span>Bem vindo: {user.nome}</span>
-        <br />
-        <span>Idade: {user.idade}</span>
-        <br />
-        <span>Email: {user.email}</span>
-        <br />
-      </div>
+      <ul>
+        {tarefas.map((tarefa) => (
+          <li key={tarefa}>{tarefa}</li>
+        ))}
+      </ul>
     </div>
   );
 }
